@@ -1,6 +1,6 @@
 import Parser from 'rss-parser';
 import { createPage } from '../lib/notion-client.js';
-import { summarizeNewsInKorean } from './news-summarizer.js';
+import { summarizeNewsInKorean, extractCountryFromNews, processNewsWithAI } from './news-summarizer.js';
 
 const parser = new Parser();
 
@@ -11,6 +11,7 @@ export interface NewsItem {
   pubDate?: string;
   source?: string;
   summary?: string; // 한글 요약
+  country?: string; // 관련 국가
 }
 
 /**
@@ -118,6 +119,19 @@ export async function saveNewsToNotion(newsItem: NewsItem) {
       };
     }
 
+    // 국가 정보 추가 (있는 경우)
+    if (newsItem.country) {
+      properties['국가'] = {
+        rich_text: [
+          {
+            text: {
+              content: newsItem.country,
+            },
+          },
+        ],
+      };
+    }
+
     await createPage(properties);
     console.log(`✓ 뉴스 저장 완료: ${newsItem.title}`);
   } catch (error) {
@@ -146,14 +160,24 @@ export async function collectAndSaveNews(feedConfigs: Array<{ url: string; name:
   // Notion에 저장
   for (const newsItem of uniqueNews) {
     try {
-      // 한글 요약 생성 (설명이 있는 경우)
+      // AI로 요약과 국가 동시 추출 (설명이 있는 경우)
       if (newsItem.description) {
-        console.log(`📝 요약 생성 중: ${newsItem.title.substring(0, 50)}...`);
-        const summary = await summarizeNewsInKorean(newsItem.title, newsItem.description);
+        console.log(`📝 AI 분석 중: ${newsItem.title.substring(0, 50)}...`);
+        
+        const { summary, country } = await processNewsWithAI(
+          newsItem.title, 
+          newsItem.description,
+          newsItem.source
+        );
+        
         if (summary) {
           newsItem.summary = summary;
           console.log(`✓ 요약 완료: ${summary}`);
         }
+        
+        newsItem.country = country;
+        console.log(`✓ 국가 추출: ${country}`);
+        
         // API rate limit 고려하여 약간의 지연
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
@@ -169,4 +193,3 @@ export async function collectAndSaveNews(feedConfigs: Array<{ url: string; name:
   console.log(`\n총 ${uniqueNews.length}개의 뉴스를 수집하고 저장했습니다.`);
   return uniqueNews;
 }
-

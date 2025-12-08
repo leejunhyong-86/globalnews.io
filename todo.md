@@ -1,144 +1,158 @@
-# Notion 뉴스 자동화 - 작업 목록
+# NewsDashvorld - 세계 뉴스 대시보드 작업 목록
 
 ## 현재 상태
+
+### 완료된 작업 ✅
 - [x] 프로젝트 초기 설정 (TypeScript, package.json)
+- [x] Next.js 14 App Router 설정
+- [x] Tailwind CSS 스타일링 설정
 - [x] Notion API 클라이언트 구현
 - [x] RSS 피드 파서 통합
 - [x] 뉴스 수집 서비스 구현
+- [x] Gemini AI 한 줄 요약 기능
+- [x] Gemini AI 국가 추출 기능
 - [x] Notion 데이터베이스 저장 로직 구현
-- [x] 스케줄러 기본 구현
-- [x] 환경 변수 설정 구조
+- [x] 뉴스 API 엔드포인트 구현 (`/api/news`)
+- [x] 3D 지구본 컴포넌트 (Three.js + react-three-fiber)
+- [x] 2D 세계지도 컴포넌트 (D3.js)
+- [x] 실시간 낮/밤 표현
+- [x] 뉴스 마커 시각화
+- [x] 호버/클릭 인터랙션
+- [x] 2D/3D 뷰 토글 기능
+- [x] 뉴스 상세 패널
+- [x] 반응형 헤더 컴포넌트
+- [x] 국가별 좌표 매핑 유틸리티
 
-## 최우선 작업: GitHub Actions 배포 설정
+### 진행 중 🔄
+- [ ] 의존성 설치 및 빌드 테스트
+- [ ] 노션 DB '국가' 필드 추가 안내
 
-### 0. GitHub Actions 배포 설정 (최우선)
-- [ ] GitHub Actions workflow 파일 생성 (`.github/workflows/news-collector.yml`)
-- [ ] Cron 스케줄 설정 (기본: 매일 오전 9시, 오후 6시 한국 시간)
-- [ ] 환경 변수 Secrets 설정 가이드 작성
-- [ ] 수동 트리거 (workflow_dispatch) 설정
-- [ ] GitHub 저장소 생성 및 코드 푸시
-- [ ] GitHub Secrets 설정 (NOTION_API_KEY, NOTION_DATABASE_ID)
-- [ ] 수동 트리거 테스트
-- [ ] 자동 스케줄 실행 확인
-- [ ] 실행 로그 확인 방법 문서화
+### 대기 중 ⏳
+- [ ] 배포 설정 (Vercel)
+- [ ] GitHub Actions CI/CD
 
-## 필수 작업 (우선순위: 높음)
-
-### 1. 환경 설정 및 테스트
-- [ ] `.env` 파일 생성 및 Notion API 키 설정 (로컬 테스트용)
-- [ ] Notion 데이터베이스 생성 및 스키마 확인
-  - [ ] 제목 (Title) 속성
-  - [ ] 링크 (URL) 속성
-  - [ ] 설명 (Rich Text) 속성
-  - [ ] 출처 (Rich Text) 속성
-  - [ ] 날짜 (Date) 속성
-- [ ] Integration을 데이터베이스에 연결
-- [ ] 데이터베이스 ID 추출 및 환경 변수 설정
-- [ ] GitHub 저장소 생성 및 코드 푸시
-- [ ] GitHub Secrets 설정 (NOTION_API_KEY, NOTION_DATABASE_ID)
-- [ ] GitHub Actions workflow 파일 확인
-
-### 2. 기능 테스트
-- [ ] 단일 RSS 피드 수집 테스트
-- [ ] 여러 RSS 피드 동시 수집 테스트
-- [ ] 중복 제거 로직 검증
-- [ ] Notion API 저장 테스트
-- [ ] 에러 핸들링 검증
-
-### 3. 스케줄러 검증
-- [ ] GitHub Actions Cron 표현식 동작 확인
-- [ ] 정기 실행 테스트 (PC가 꺼진 상태에서도 작동 확인)
-- [ ] GitHub Actions 로그 출력 확인
-- [ ] 수동 트리거 테스트
-
-## 개선 작업 (우선순위: 중간)
-
-### 4. 에러 처리 강화
-- [ ] 네트워크 오류 처리
-- [ ] Notion API rate limit 처리
-- [ ] RSS 피드 파싱 오류 처리
-- [ ] 재시도 로직 구현
-- [ ] 에러 로깅 시스템
-
-### 5. 중복 방지 개선
-- [ ] 데이터베이스 기반 중복 체크 (링크만으로는 부족할 수 있음)
-- [ ] 제목 유사도 기반 중복 감지
-- [ ] 저장 전 기존 데이터 조회 로직
-
-### 6. 성능 최적화
-- [ ] 배치 처리로 API 호출 최소화
-- [ ] 병렬 처리로 수집 속도 향상
-- [ ] 메모리 사용량 최적화
-
-### 7. 로깅 및 모니터링
-- [ ] 구조화된 로그 시스템 (Winston 등)
-- [ ] 수집 통계 기록
-- [ ] 실패한 피드 추적
-- [ ] 성능 메트릭 수집
-
-## 고급 기능 (우선순위: 낮음)
-
-### 8. 사용자 경험 개선
-- [ ] CLI 인터페이스 개선
-- [ ] 진행 상황 표시 (프로그레스 바)
-- [ ] 상세한 실행 리포트 생성
-- [ ] 설정 파일 기반 피드 관리
-
-### 9. 데이터 품질 향상
-- [ ] 뉴스 내용 요약 기능
-- [ ] 카테고리 자동 분류
-- [ ] 중요도 점수 계산
-- [ ] 이미지 추출 및 저장
-
-### 10. 알림 및 통합
-- [ ] 수집 완료 알림 (이메일, 슬랙 등)
-- [ ] 실패 시 알림
-- [ ] 일일/주간 리포트 생성
-
-### 11. 확장성
-- [ ] 플러그인 시스템
-- [ ] 다른 뉴스 소스 지원 (API 기반)
-- [ ] 다중 데이터베이스 지원
-- [ ] 웹훅 지원
-
-## 문서화
-
-### 12. 문서 작성
-- [x] README.md 기본 작성
-- [ ] PRD 문서 작성
-- [ ] API 문서 작성
-- [ ] 설정 가이드 상세화
-- [ ] 트러블슈팅 가이드
-
-## 배포 및 운영
-
-### 13. 배포 준비
-- [x] GitHub Actions 배포 설정 (완료)
-- [ ] 프로덕션 환경 변수 설정 (GitHub Secrets)
-- [ ] Docker 컨테이너화 (선택사항, 개인용으로는 불필요)
-- [ ] CI/CD 파이프라인 구축 (GitHub Actions로 대체)
-- [ ] 모니터링 대시보드 설정 (GitHub Actions 로그 활용)
-
-### 14. 백업 및 복구
-- [ ] 데이터 백업 전략
-- [ ] 실패 시 복구 프로세스
-- [ ] 데이터 마이그레이션 스크립트
-
-## 의존성 관계
+## 프로젝트 구조
 
 ```
-환경 설정 → 기능 테스트 → 스케줄러 검증
-    ↓
-에러 처리 강화 → 중복 방지 개선 → 성능 최적화
-    ↓
-로깅 및 모니터링 → 사용자 경험 개선
-    ↓
-데이터 품질 향상 → 알림 및 통합 → 확장성
+NewsDashvorld/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── page.tsx            # 메인 대시보드 페이지
+│   │   ├── layout.tsx          # 루트 레이아웃
+│   │   ├── globals.css         # 글로벌 스타일
+│   │   └── api/news/route.ts   # 뉴스 API 엔드포인트
+│   ├── components/
+│   │   ├── Globe3D.tsx         # 3D 지구본 컴포넌트
+│   │   ├── WorldMap2D.tsx      # 2D 세계지도 컴포넌트
+│   │   ├── NewsPanel.tsx       # 뉴스 상세 패널
+│   │   ├── ViewToggle.tsx      # 2D/3D 토글 버튼
+│   │   └── Header.tsx          # 헤더 컴포넌트
+│   ├── types/
+│   │   └── news.ts             # 타입 정의
+│   ├── lib/
+│   │   ├── notion-client.ts    # 노션 API 클라이언트
+│   │   └── country-utils.ts    # 국가 좌표 유틸리티
+│   ├── services/
+│   │   ├── news-collector.ts   # 뉴스 수집 서비스
+│   │   └── news-summarizer.ts  # AI 요약/국가 추출
+│   ├── config/
+│   │   ├── env.ts              # 환경 변수 설정
+│   │   └── feeds.ts            # RSS 피드 설정
+│   └── scripts/
+│       └── news-collector.ts   # 뉴스 수집 스크립트
+├── package.json
+├── next.config.js
+├── tailwind.config.js
+├── tsconfig.json
+└── .env                        # 환경 변수 (git 제외)
+```
+
+## 핵심 기능
+
+### 1. 세계지도 시각화
+- **3D 지구본**: Three.js + react-three-fiber
+  - 자동 회전 애니메이션
+  - 마우스 드래그로 회전/줌
+  - 별 배경 효과
+  - 대기권 글로우 효과
+  
+- **2D 세계지도**: D3.js
+  - Natural Earth 투영법
+  - 위도/경도 격자선
+  - 대륙 표시
+
+### 2. 실시간 낮/밤 표현
+- UTC 시간 기반 태양 위치 계산
+- 계절에 따른 태양 적위 반영
+- 낮 영역: 밝은 조명
+- 밤 영역: 어두운 오버레이
+
+### 3. 뉴스 마커
+- 국가별 좌표에 뉴스 마커 표시
+- 펄스 애니메이션 효과
+- 호버 시 한 줄 요약 툴팁
+- 클릭 시 상세 패널 오픈
+
+### 4. AI 기능 (Gemini)
+- 뉴스 한 줄 요약 (한국어)
+- 뉴스 관련 국가 자동 추출
+- 출처 기반 국가 추정 (백업)
+
+## 환경 변수
+
+```env
+# Notion API
+NOTION_API_KEY=your_notion_api_key
+NOTION_DATABASE_ID=your_database_id
+
+# Gemini API
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+## 노션 데이터베이스 스키마
+
+| 속성명 | 타입 | 설명 |
+|--------|------|------|
+| name | Title | 뉴스 제목 |
+| URL | URL | 원문 링크 |
+| 설명 | Rich Text | 기사 내용 요약 |
+| 출처 | Rich Text | 뉴스 소스 (CNN, BBC 등) |
+| date | Date | 기사 발행일 |
+| 한 줄 요약 | Rich Text | AI 생성 한 줄 요약 |
+| 국가 | Rich Text | 관련 국가 (NEW!) |
+
+## 실행 방법
+
+```bash
+# 의존성 설치
+pnpm install
+
+# 개발 서버 실행
+pnpm dev
+
+# 뉴스 수집 실행
+pnpm news
+
+# 프로덕션 빌드
+pnpm build
+pnpm start
 ```
 
 ## 다음 단계
-1. 환경 설정 완료 후 기본 기능 테스트
-2. 에러 처리 강화
-3. 중복 방지 로직 개선
-4. 로깅 시스템 도입
 
+### 단기 (1-2주)
+- [ ] Vercel 배포
+- [ ] PWA 설정 (모바일 홈화면 추가)
+- [ ] 성능 최적화
+
+### 중기 (1개월)
+- [ ] 뉴스 필터링 (국가별, 날짜별)
+- [ ] 검색 기능
+- [ ] 다크/라이트 테마 토글
+- [ ] 뉴스 알림 기능
+
+### 장기 (3개월+)
+- [ ] 안드로이드 위젯 앱 개발
+- [ ] 텔레그램/슬랙 봇 연동
+- [ ] 뉴스 트렌드 분석
+- [ ] 다국어 지원

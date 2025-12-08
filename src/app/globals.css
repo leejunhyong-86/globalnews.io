@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 8, 13, 43;
+  --background-end-rgb: 12, 20, 69;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    135deg,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(12, 20, 69, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(97, 114, 243, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(97, 114, 243, 0.8);
+}
+
+/* 뉴스 마커 애니메이션 */
+@keyframes marker-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.news-marker {
+  animation: marker-pulse 2s ease-in-out infinite;
+}
+
+/* 지구본 컨테이너 */
+.globe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 그라데이션 오버레이 */
+.gradient-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(8, 13, 43, 0.3) 50%,
+    rgba(8, 13, 43, 0.8) 100%
+  );
+}
+
+/* 글로우 효과 */
+.glow {
+  box-shadow: 0 0 20px rgba(97, 114, 243, 0.5);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(97, 114, 243, 0.8);
+}
+
+/* 툴팁 스타일 */
+.tooltip {
+  @apply absolute z-50 px-4 py-2 text-sm bg-cosmos-900/95 backdrop-blur-sm rounded-lg border border-cosmos-600/50 shadow-glow;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  margin-top: -10px;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(12, 20, 69, 0.95) transparent transparent transparent;
+}
+
+/* 뉴스 카드 스타일 */
+.news-card {
+  @apply bg-cosmos-900/80 backdrop-blur-md rounded-xl border border-cosmos-700/50 p-4 transition-all duration-300;
+}
+
+.news-card:hover {
+  @apply border-cosmos-500/70 shadow-glow transform -translate-y-1;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+  @apply px-4 py-2 bg-cosmos-600 hover:bg-cosmos-500 rounded-lg font-medium transition-all duration-200 shadow-glow;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-cosmos-800/80 hover:bg-cosmos-700/80 border border-cosmos-600/50 rounded-lg font-medium transition-all duration-200;
+}
+
+/* 토글 버튼 */
+.toggle-btn {
+  @apply relative inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full transition-all duration-300;
+}
+
+.toggle-btn.active {
+  @apply bg-cosmos-600 shadow-glow;
+}
+
+.toggle-btn:not(.active) {
+  @apply bg-cosmos-900/50 hover:bg-cosmos-800/50;
+}
+
