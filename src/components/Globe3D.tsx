@@ -198,9 +198,9 @@ function CameraController({
   useEffect(() => {
     if (focusTarget) {
       // 위경도를 카메라 위치로 변환 (지구 밖에서 해당 지점을 바라봄)
-      const targetPos = latLngToVector3(focusTarget.lat, focusTarget.lng, 1.8);
+      const [x, y, z] = latLngToVector3(focusTarget.lat, focusTarget.lng, 1.8);
       animationRef.current = {
-        targetPosition: targetPos,
+        targetPosition: new THREE.Vector3(x, y, z),
         targetZoom: 1.8,
         isAnimating: true,
       };
@@ -403,10 +403,10 @@ function ClusterMarker({
   const glowRef = useRef<THREE.Mesh>(null);
   const clickAnimRef = useRef(0);
 
-  const position = useMemo(() => 
-    latLngToVector3(cluster.coords.lat, cluster.coords.lng, 1.03),
-    [cluster.coords]
-  );
+  const position = useMemo(() => {
+    const [x, y, z] = latLngToVector3(cluster.coords.lat, cluster.coords.lng, 1.03);
+    return new THREE.Vector3(x, y, z);
+  }, [cluster.coords]);
 
   const baseSize = useMemo(() => {
     const count = cluster.newsItems.length;

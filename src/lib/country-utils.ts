@@ -312,7 +312,7 @@ export function getUSNewsCoordinates(news: { title?: string; description?: strin
   }
   
   // 기본 미국 좌표 (워싱턴 DC)
-  return null;
+  return { lat: 38.9072, lng: -77.0369 };
 }
 
 // 주요 대도시 좌표 (도시 불빛 효과용)
