@@ -47,6 +47,8 @@ export default function Home() {
   const [hoveredNews, setHoveredNews] = useState<NewsItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [filterCountry, setFilterCountry] = useState<string | null>(null);
+  const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
 
   // 뉴스 데이터 fetch
   useEffect(() => {
@@ -73,10 +75,32 @@ export default function Home() {
     setHoveredNews(newsItem);
   };
 
+  // 국가 클릭 시 해당 국가의 뉴스 목록 표시
+  const handleCountryClick = (country: string, newsItems: NewsItem[]) => {
+    setFilterCountry(country);
+    setFilteredNews(newsItems);
+    setSelectedNews(null);
+    setIsPanelOpen(true);
+  };
+
+  // 필터 해제
+  const handleClearFilter = () => {
+    setFilterCountry(null);
+    setFilteredNews([]);
+  };
+
+  // 패널 열기
+  const handleOpenPanel = () => {
+    setSelectedNews(null);
+    setFilterCountry(null);
+    setFilteredNews([]);
+    setIsPanelOpen(true);
+  };
+
   return (
     <main className="relative w-screen h-screen overflow-hidden">
       {/* 헤더 */}
-      <Header newsCount={news.length} />
+      <Header newsCount={news.length} onNewsCountClick={handleOpenPanel} />
 
       {/* 뷰 토글 버튼 */}
       <ViewToggle viewMode={viewMode} onToggle={setViewMode} />
@@ -88,6 +112,7 @@ export default function Home() {
             news={news}
             onNewsClick={handleNewsClick}
             onNewsHover={handleNewsHover}
+            onCountryClick={handleCountryClick}
           />
         ) : (
           <WorldMap2D
@@ -122,8 +147,12 @@ export default function Home() {
         news={selectedNews}
         isOpen={isPanelOpen}
         onClose={() => setIsPanelOpen(false)}
+        onOpen={handleOpenPanel}
         allNews={news}
         onNewsSelect={handleNewsClick}
+        filterCountry={filterCountry}
+        filteredNews={filteredNews}
+        onClearFilter={handleClearFilter}
       />
 
       {/* 로딩 오버레이 */}

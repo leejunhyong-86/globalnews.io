@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 
 interface HeaderProps {
   newsCount: number;
+  onNewsCountClick?: () => void;
 }
 
-export default function Header({ newsCount }: HeaderProps) {
+export default function Header({ newsCount, onNewsCountClick }: HeaderProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -68,9 +69,16 @@ export default function Header({ newsCount }: HeaderProps) {
               <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
               <span className="text-cosmos-300">LIVE</span>
             </span>
-            <span className="inline-flex items-center px-2 py-1 rounded-full bg-cosmos-800/80 border border-cosmos-600/50 text-xs text-cosmos-300">
+            <button
+              onClick={onNewsCountClick}
+              className="inline-flex items-center px-3 py-1.5 rounded-full bg-cosmos-800/80 border border-cosmos-600/50 text-xs text-cosmos-300 hover:bg-cosmos-700/80 hover:border-cosmos-500/50 hover:text-cosmos-100 transition-all cursor-pointer"
+              title="뉴스 목록 보기"
+            >
               📰 {newsCount}개 뉴스
-            </span>
+              <svg className="w-3 h-3 ml-1.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

@@ -6,16 +6,24 @@ interface NewsPanelProps {
   news: NewsItem | null;
   isOpen: boolean;
   onClose: () => void;
+  onOpen: () => void;
   allNews: NewsItem[];
   onNewsSelect: (news: NewsItem) => void;
+  filterCountry?: string | null;
+  filteredNews?: NewsItem[];
+  onClearFilter?: () => void;
 }
 
 export default function NewsPanel({
   news,
   isOpen,
   onClose,
+  onOpen,
   allNews,
   onNewsSelect,
+  filterCountry,
+  filteredNews,
+  onClearFilter,
 }: NewsPanelProps) {
   // 국가별로 뉴스 그룹화
   const newsByCountry = allNews.reduce((acc, item) => {
@@ -45,9 +53,19 @@ export default function NewsPanel({
       >
         {/* 헤더 */}
         <div className="flex items-center justify-between p-4 border-b border-cosmos-700/50">
-          <h2 className="text-xl font-display font-bold text-cosmos-100">
-            {news ? '뉴스 상세' : '전체 뉴스'}
-          </h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-display font-bold text-cosmos-100">
+              {news ? '뉴스 상세' : filterCountry ? `📍 ${filterCountry}` : '전체 뉴스'}
+            </h2>
+            {filterCountry && !news && (
+              <button
+                onClick={onClearFilter}
+                className="text-xs px-2 py-1 bg-cosmos-700/50 hover:bg-cosmos-600/50 rounded-full text-cosmos-300 transition-colors"
+              >
+                필터 해제
+              </button>
+            )}
+          </div>
           <button
             onClick={onClose}
             className="p-2 hover:bg-cosmos-800 rounded-lg transition-colors"
@@ -134,6 +152,40 @@ export default function NewsPanel({
                 </div>
               )}
             </div>
+          ) : filterCountry && filteredNews ? (
+            // 필터링된 국가의 뉴스 목록
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-cosmos-700/30">
+                <span className="text-cosmos-300 text-sm">
+                  {filteredNews.length}개의 뉴스
+                </span>
+              </div>
+              {filteredNews.map((n) => (
+                <button
+                  key={n.id}
+                  onClick={() => onNewsSelect(n)}
+                  className="news-card w-full text-left"
+                >
+                  <p className="text-sm font-medium text-cosmos-100 line-clamp-2">
+                    {n.title}
+                  </p>
+                  {n.summary && (
+                    <p className="text-xs text-cosmos-400 mt-1 line-clamp-2">
+                      {n.summary}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-2 mt-2 text-xs text-cosmos-500">
+                    <span>{n.source}</span>
+                    {n.date && (
+                      <>
+                        <span>•</span>
+                        <span>{new Date(n.date).toLocaleDateString('ko-KR')}</span>
+                      </>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
           ) : (
             // 전체 뉴스 목록 (국가별 그룹)
             <div className="space-y-6">
@@ -182,13 +234,21 @@ export default function NewsPanel({
       {/* 뉴스 목록 열기 버튼 */}
       {!isOpen && (
         <button
-          onClick={() => onClose()}
-          className="fixed right-4 top-1/2 transform -translate-y-1/2 z-20 p-3 bg-cosmos-800/80 backdrop-blur-md rounded-l-xl border border-r-0 border-cosmos-600/50 hover:bg-cosmos-700/80 transition-colors"
+          onClick={onOpen}
+          className="fixed right-4 top-1/2 transform -translate-y-1/2 z-20 p-4 bg-cosmos-800/90 backdrop-blur-md rounded-l-2xl border border-r-0 border-cosmos-600/50 hover:bg-cosmos-700/90 hover:scale-105 transition-all shadow-lg group"
           title="뉴스 목록 열기"
         >
-          <svg className="w-5 h-5 text-cosmos-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-          </svg>
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-cosmos-300 group-hover:text-cosmos-100 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+            <span className="text-xs font-medium text-cosmos-300 group-hover:text-cosmos-100 hidden md:block">
+              뉴스 목록
+            </span>
+            <svg className="w-4 h-4 text-cosmos-400 group-hover:text-cosmos-200 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </div>
         </button>
       )}
     </>
