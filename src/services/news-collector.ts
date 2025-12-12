@@ -12,6 +12,8 @@ export interface NewsItem {
   source?: string;
   summary?: string; // 한글 요약
   country?: string; // 관련 국가
+  region?: string;  // 지역 (주/도/성)
+  city?: string;    // 도시
 }
 
 /**
@@ -132,6 +134,32 @@ export async function saveNewsToNotion(newsItem: NewsItem) {
       };
     }
 
+    // 지역 정보 추가 (있는 경우)
+    if (newsItem.region) {
+      properties['지역'] = {
+        rich_text: [
+          {
+            text: {
+              content: newsItem.region,
+            },
+          },
+        ],
+      };
+    }
+
+    // 도시 정보 추가 (있는 경우)
+    if (newsItem.city) {
+      properties['도시'] = {
+        rich_text: [
+          {
+            text: {
+              content: newsItem.city,
+            },
+          },
+        ],
+      };
+    }
+
     await createPage(properties);
     console.log(`✓ 뉴스 저장 완료: ${newsItem.title}`);
   } catch (error) {
@@ -160,11 +188,11 @@ export async function collectAndSaveNews(feedConfigs: Array<{ url: string; name:
   // Notion에 저장
   for (const newsItem of uniqueNews) {
     try {
-      // AI로 요약과 국가 동시 추출 (설명이 있는 경우)
+      // AI로 요약과 위치 정보 동시 추출 (설명이 있는 경우)
       if (newsItem.description) {
         console.log(`📝 AI 분석 중: ${newsItem.title.substring(0, 50)}...`);
         
-        const { summary, country } = await processNewsWithAI(
+        const { summary, country, region, city } = await processNewsWithAI(
           newsItem.title, 
           newsItem.description,
           newsItem.source
@@ -177,6 +205,16 @@ export async function collectAndSaveNews(feedConfigs: Array<{ url: string; name:
         
         newsItem.country = country;
         console.log(`✓ 국가 추출: ${country}`);
+        
+        if (region) {
+          newsItem.region = region;
+          console.log(`✓ 지역 추출: ${region}`);
+        }
+        
+        if (city) {
+          newsItem.city = city;
+          console.log(`✓ 도시 추출: ${city}`);
+        }
         
         // API rate limit 고려하여 약간의 지연
         await new Promise((resolve) => setTimeout(resolve, 1000));

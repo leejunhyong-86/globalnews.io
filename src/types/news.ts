@@ -7,6 +7,10 @@ export interface NewsItem {
   date?: string;
   summary?: string;
   country?: string;
+  // 지역 정보 (주/도/성)
+  region?: string;
+  // 도시 정보
+  city?: string;
   // 지도 표시용 좌표
   coordinates?: {
     lat: number;

@@ -80,8 +80,15 @@ export const COUNTRY_COORDINATES: Record<string, CountryCoordinates> = {
   '글로벌': { name: '전세계', code: 'GLOBAL', lat: 0, lng: 0 },
 };
 
+// 지역 좌표 타입
+interface RegionCoordinates {
+  lat: number;
+  lng: number;
+  name: string;
+}
+
 // 미국 주요 주/도시 좌표 (지역별 상세 표시용)
-export const US_REGIONS: Record<string, { lat: number; lng: number; name: string }> = {
+export const US_REGIONS: Record<string, RegionCoordinates> = {
   // 주요 주
   'California': { lat: 36.7783, lng: -119.4179, name: '캘리포니아' },
   'Texas': { lat: 31.9686, lng: -99.9018, name: '텍사스' },
@@ -396,4 +403,343 @@ export const MAJOR_CITIES: CityData[] = [
   { name: '카사블랑카', lat: 33.5731, lng: -7.5898, population: 3359000 },
   { name: '케이프타운', lat: -33.9249, lng: 18.4241, population: 4618000 },
 ];
+
+// 중국 주요 성/도시 좌표
+export const CHINA_REGIONS: Record<string, RegionCoordinates> = {
+  // 주요 성
+  '광둥성': { lat: 23.1291, lng: 113.2644, name: '광둥성' },
+  '광동성': { lat: 23.1291, lng: 113.2644, name: '광둥성' },
+  'Guangdong': { lat: 23.1291, lng: 113.2644, name: '광둥성' },
+  '산둥성': { lat: 36.6683, lng: 117.0206, name: '산둥성' },
+  'Shandong': { lat: 36.6683, lng: 117.0206, name: '산둥성' },
+  '쓰촨성': { lat: 30.5728, lng: 104.0668, name: '쓰촨성' },
+  'Sichuan': { lat: 30.5728, lng: 104.0668, name: '쓰촨성' },
+  '저장성': { lat: 30.2741, lng: 120.1551, name: '저장성' },
+  'Zhejiang': { lat: 30.2741, lng: 120.1551, name: '저장성' },
+  '장쑤성': { lat: 32.0603, lng: 118.7969, name: '장쑤성' },
+  'Jiangsu': { lat: 32.0603, lng: 118.7969, name: '장쑤성' },
+  '후난성': { lat: 28.2282, lng: 112.9388, name: '후난성' },
+  'Hunan': { lat: 28.2282, lng: 112.9388, name: '후난성' },
+  '후베이성': { lat: 30.5928, lng: 114.3055, name: '후베이성' },
+  'Hubei': { lat: 30.5928, lng: 114.3055, name: '후베이성' },
+  '신장': { lat: 43.7930, lng: 87.6177, name: '신장' },
+  'Xinjiang': { lat: 43.7930, lng: 87.6177, name: '신장' },
+  '티베트': { lat: 29.6500, lng: 91.1000, name: '티베트' },
+  'Tibet': { lat: 29.6500, lng: 91.1000, name: '티베트' },
+  
+  // 직할시
+  '베이징': { lat: 39.9042, lng: 116.4074, name: '베이징' },
+  '북경': { lat: 39.9042, lng: 116.4074, name: '베이징' },
+  'Beijing': { lat: 39.9042, lng: 116.4074, name: '베이징' },
+  '상하이': { lat: 31.2304, lng: 121.4737, name: '상하이' },
+  '상해': { lat: 31.2304, lng: 121.4737, name: '상하이' },
+  'Shanghai': { lat: 31.2304, lng: 121.4737, name: '상하이' },
+  '톈진': { lat: 39.3434, lng: 117.3616, name: '톈진' },
+  'Tianjin': { lat: 39.3434, lng: 117.3616, name: '톈진' },
+  '충칭': { lat: 29.4316, lng: 106.9123, name: '충칭' },
+  'Chongqing': { lat: 29.4316, lng: 106.9123, name: '충칭' },
+  
+  // 주요 도시
+  '광저우': { lat: 23.1291, lng: 113.2644, name: '광저우' },
+  'Guangzhou': { lat: 23.1291, lng: 113.2644, name: '광저우' },
+  '선전': { lat: 22.5431, lng: 114.0579, name: '선전' },
+  '심천': { lat: 22.5431, lng: 114.0579, name: '선전' },
+  'Shenzhen': { lat: 22.5431, lng: 114.0579, name: '선전' },
+  '항저우': { lat: 30.2741, lng: 120.1551, name: '항저우' },
+  'Hangzhou': { lat: 30.2741, lng: 120.1551, name: '항저우' },
+  '난징': { lat: 32.0603, lng: 118.7969, name: '난징' },
+  'Nanjing': { lat: 32.0603, lng: 118.7969, name: '난징' },
+  '우한': { lat: 30.5928, lng: 114.3055, name: '우한' },
+  'Wuhan': { lat: 30.5928, lng: 114.3055, name: '우한' },
+  '청두': { lat: 30.5728, lng: 104.0668, name: '청두' },
+  'Chengdu': { lat: 30.5728, lng: 104.0668, name: '청두' },
+  '시안': { lat: 34.3416, lng: 108.9398, name: '시안' },
+  'Xian': { lat: 34.3416, lng: 108.9398, name: '시안' },
+};
+
+// 러시아 주요 지역/도시 좌표
+export const RUSSIA_REGIONS: Record<string, RegionCoordinates> = {
+  // 주요 지역
+  '모스크바주': { lat: 55.7558, lng: 37.6173, name: '모스크바주' },
+  'Moscow Oblast': { lat: 55.7558, lng: 37.6173, name: '모스크바주' },
+  '시베리아': { lat: 61.0137, lng: 99.1967, name: '시베리아' },
+  'Siberia': { lat: 61.0137, lng: 99.1967, name: '시베리아' },
+  '극동': { lat: 48.4827, lng: 135.0836, name: '극동' },
+  'Far East': { lat: 48.4827, lng: 135.0836, name: '극동' },
+  '크림': { lat: 44.9521, lng: 34.1024, name: '크림' },
+  'Crimea': { lat: 44.9521, lng: 34.1024, name: '크림' },
+  '체첸': { lat: 43.3170, lng: 45.6982, name: '체첸' },
+  'Chechnya': { lat: 43.3170, lng: 45.6982, name: '체첸' },
+  
+  // 주요 도시
+  '모스크바': { lat: 55.7558, lng: 37.6173, name: '모스크바' },
+  'Moscow': { lat: 55.7558, lng: 37.6173, name: '모스크바' },
+  '상트페테르부르크': { lat: 59.9311, lng: 30.3609, name: '상트페테르부르크' },
+  'Saint Petersburg': { lat: 59.9311, lng: 30.3609, name: '상트페테르부르크' },
+  '노보시비르스크': { lat: 55.0084, lng: 82.9357, name: '노보시비르스크' },
+  'Novosibirsk': { lat: 55.0084, lng: 82.9357, name: '노보시비르스크' },
+  '블라디보스토크': { lat: 43.1056, lng: 131.8735, name: '블라디보스토크' },
+  'Vladivostok': { lat: 43.1056, lng: 131.8735, name: '블라디보스토크' },
+  '카잔': { lat: 55.7887, lng: 49.1221, name: '카잔' },
+  'Kazan': { lat: 55.7887, lng: 49.1221, name: '카잔' },
+  '예카테린부르크': { lat: 56.8389, lng: 60.6057, name: '예카테린부르크' },
+  'Yekaterinburg': { lat: 56.8389, lng: 60.6057, name: '예카테린부르크' },
+  '소치': { lat: 43.6028, lng: 39.7342, name: '소치' },
+  'Sochi': { lat: 43.6028, lng: 39.7342, name: '소치' },
+};
+
+// 캐나다 주요 지역/도시 좌표
+export const CANADA_REGIONS: Record<string, RegionCoordinates> = {
+  // 주
+  '온타리오': { lat: 51.2538, lng: -85.3232, name: '온타리오' },
+  'Ontario': { lat: 51.2538, lng: -85.3232, name: '온타리오' },
+  '퀘벡': { lat: 52.9399, lng: -73.5491, name: '퀘벡' },
+  'Quebec': { lat: 52.9399, lng: -73.5491, name: '퀘벡' },
+  '브리티시컬럼비아': { lat: 53.7267, lng: -127.6476, name: '브리티시컬럼비아' },
+  'British Columbia': { lat: 53.7267, lng: -127.6476, name: '브리티시컬럼비아' },
+  '앨버타': { lat: 53.9333, lng: -116.5765, name: '앨버타' },
+  'Alberta': { lat: 53.9333, lng: -116.5765, name: '앨버타' },
+  
+  // 도시
+  '토론토': { lat: 43.6532, lng: -79.3832, name: '토론토' },
+  'Toronto': { lat: 43.6532, lng: -79.3832, name: '토론토' },
+  '밴쿠버': { lat: 49.2827, lng: -123.1207, name: '밴쿠버' },
+  'Vancouver': { lat: 49.2827, lng: -123.1207, name: '밴쿠버' },
+  '몬트리올': { lat: 45.5017, lng: -73.5673, name: '몬트리올' },
+  'Montreal': { lat: 45.5017, lng: -73.5673, name: '몬트리올' },
+  '캘거리': { lat: 51.0447, lng: -114.0719, name: '캘거리' },
+  'Calgary': { lat: 51.0447, lng: -114.0719, name: '캘거리' },
+  '오타와': { lat: 45.4215, lng: -75.6972, name: '오타와' },
+  'Ottawa': { lat: 45.4215, lng: -75.6972, name: '오타와' },
+  '에드먼턴': { lat: 53.5461, lng: -113.4938, name: '에드먼턴' },
+  'Edmonton': { lat: 53.5461, lng: -113.4938, name: '에드먼턴' },
+};
+
+// 인도 주요 지역/도시 좌표
+export const INDIA_REGIONS: Record<string, RegionCoordinates> = {
+  // 주요 주
+  '마하라슈트라': { lat: 19.7515, lng: 75.7139, name: '마하라슈트라' },
+  'Maharashtra': { lat: 19.7515, lng: 75.7139, name: '마하라슈트라' },
+  '카르나타카': { lat: 15.3173, lng: 75.7139, name: '카르나타카' },
+  'Karnataka': { lat: 15.3173, lng: 75.7139, name: '카르나타카' },
+  '타밀나두': { lat: 11.1271, lng: 78.6569, name: '타밀나두' },
+  'Tamil Nadu': { lat: 11.1271, lng: 78.6569, name: '타밀나두' },
+  '우타르프라데시': { lat: 26.8467, lng: 80.9462, name: '우타르프라데시' },
+  'Uttar Pradesh': { lat: 26.8467, lng: 80.9462, name: '우타르프라데시' },
+  '라자스탄': { lat: 27.0238, lng: 74.2179, name: '라자스탄' },
+  'Rajasthan': { lat: 27.0238, lng: 74.2179, name: '라자스탄' },
+  '케랄라': { lat: 10.8505, lng: 76.2711, name: '케랄라' },
+  'Kerala': { lat: 10.8505, lng: 76.2711, name: '케랄라' },
+  '카슈미르': { lat: 34.0837, lng: 74.7973, name: '카슈미르' },
+  'Kashmir': { lat: 34.0837, lng: 74.7973, name: '카슈미르' },
+  
+  // 주요 도시
+  '뭄바이': { lat: 19.0760, lng: 72.8777, name: '뭄바이' },
+  'Mumbai': { lat: 19.0760, lng: 72.8777, name: '뭄바이' },
+  '델리': { lat: 28.6139, lng: 77.2090, name: '델리' },
+  'Delhi': { lat: 28.6139, lng: 77.2090, name: '델리' },
+  'New Delhi': { lat: 28.6139, lng: 77.2090, name: '뉴델리' },
+  '뉴델리': { lat: 28.6139, lng: 77.2090, name: '뉴델리' },
+  '벵갈루루': { lat: 12.9716, lng: 77.5946, name: '벵갈루루' },
+  'Bangalore': { lat: 12.9716, lng: 77.5946, name: '벵갈루루' },
+  'Bengaluru': { lat: 12.9716, lng: 77.5946, name: '벵갈루루' },
+  '첸나이': { lat: 13.0827, lng: 80.2707, name: '첸나이' },
+  'Chennai': { lat: 13.0827, lng: 80.2707, name: '첸나이' },
+  '콜카타': { lat: 22.5726, lng: 88.3639, name: '콜카타' },
+  'Kolkata': { lat: 22.5726, lng: 88.3639, name: '콜카타' },
+  '하이데라바드': { lat: 17.3850, lng: 78.4867, name: '하이데라바드' },
+  'Hyderabad': { lat: 17.3850, lng: 78.4867, name: '하이데라바드' },
+};
+
+// 유럽 주요 국가 도시 좌표
+export const EUROPE_CITIES: Record<string, Record<string, RegionCoordinates>> = {
+  '영국': {
+    '런던': { lat: 51.5074, lng: -0.1278, name: '런던' },
+    'London': { lat: 51.5074, lng: -0.1278, name: '런던' },
+    '맨체스터': { lat: 53.4808, lng: -2.2426, name: '맨체스터' },
+    'Manchester': { lat: 53.4808, lng: -2.2426, name: '맨체스터' },
+    '버밍엄': { lat: 52.4862, lng: -1.8904, name: '버밍엄' },
+    'Birmingham': { lat: 52.4862, lng: -1.8904, name: '버밍엄' },
+    '에든버러': { lat: 55.9533, lng: -3.1883, name: '에든버러' },
+    'Edinburgh': { lat: 55.9533, lng: -3.1883, name: '에든버러' },
+    '글래스고': { lat: 55.8642, lng: -4.2518, name: '글래스고' },
+    'Glasgow': { lat: 55.8642, lng: -4.2518, name: '글래스고' },
+    '리버풀': { lat: 53.4084, lng: -2.9916, name: '리버풀' },
+    'Liverpool': { lat: 53.4084, lng: -2.9916, name: '리버풀' },
+  },
+  '독일': {
+    '베를린': { lat: 52.5200, lng: 13.4050, name: '베를린' },
+    'Berlin': { lat: 52.5200, lng: 13.4050, name: '베를린' },
+    '뮌헨': { lat: 48.1351, lng: 11.5820, name: '뮌헨' },
+    'Munich': { lat: 48.1351, lng: 11.5820, name: '뮌헨' },
+    '프랑크푸르트': { lat: 50.1109, lng: 8.6821, name: '프랑크푸르트' },
+    'Frankfurt': { lat: 50.1109, lng: 8.6821, name: '프랑크푸르트' },
+    '함부르크': { lat: 53.5511, lng: 9.9937, name: '함부르크' },
+    'Hamburg': { lat: 53.5511, lng: 9.9937, name: '함부르크' },
+    '쾰른': { lat: 50.9375, lng: 6.9603, name: '쾰른' },
+    'Cologne': { lat: 50.9375, lng: 6.9603, name: '쾰른' },
+    '슈투트가르트': { lat: 48.7758, lng: 9.1829, name: '슈투트가르트' },
+    'Stuttgart': { lat: 48.7758, lng: 9.1829, name: '슈투트가르트' },
+  },
+  '프랑스': {
+    '파리': { lat: 48.8566, lng: 2.3522, name: '파리' },
+    'Paris': { lat: 48.8566, lng: 2.3522, name: '파리' },
+    '마르세유': { lat: 43.2965, lng: 5.3698, name: '마르세유' },
+    'Marseille': { lat: 43.2965, lng: 5.3698, name: '마르세유' },
+    '리옹': { lat: 45.7640, lng: 4.8357, name: '리옹' },
+    'Lyon': { lat: 45.7640, lng: 4.8357, name: '리옹' },
+    '니스': { lat: 43.7102, lng: 7.2620, name: '니스' },
+    'Nice': { lat: 43.7102, lng: 7.2620, name: '니스' },
+    '보르도': { lat: 44.8378, lng: -0.5792, name: '보르도' },
+    'Bordeaux': { lat: 44.8378, lng: -0.5792, name: '보르도' },
+  },
+  '일본': {
+    '도쿄': { lat: 35.6762, lng: 139.6503, name: '도쿄' },
+    'Tokyo': { lat: 35.6762, lng: 139.6503, name: '도쿄' },
+    '오사카': { lat: 34.6937, lng: 135.5023, name: '오사카' },
+    'Osaka': { lat: 34.6937, lng: 135.5023, name: '오사카' },
+    '교토': { lat: 35.0116, lng: 135.7681, name: '교토' },
+    'Kyoto': { lat: 35.0116, lng: 135.7681, name: '교토' },
+    '요코하마': { lat: 35.4437, lng: 139.6380, name: '요코하마' },
+    'Yokohama': { lat: 35.4437, lng: 139.6380, name: '요코하마' },
+    '나고야': { lat: 35.1815, lng: 136.9066, name: '나고야' },
+    'Nagoya': { lat: 35.1815, lng: 136.9066, name: '나고야' },
+    '후쿠오카': { lat: 33.5904, lng: 130.4017, name: '후쿠오카' },
+    'Fukuoka': { lat: 33.5904, lng: 130.4017, name: '후쿠오카' },
+    '삿포로': { lat: 43.0618, lng: 141.3545, name: '삿포로' },
+    'Sapporo': { lat: 43.0618, lng: 141.3545, name: '삿포로' },
+    '오키나와': { lat: 26.2124, lng: 127.6809, name: '오키나와' },
+    'Okinawa': { lat: 26.2124, lng: 127.6809, name: '오키나와' },
+  },
+  '호주': {
+    '시드니': { lat: -33.8688, lng: 151.2093, name: '시드니' },
+    'Sydney': { lat: -33.8688, lng: 151.2093, name: '시드니' },
+    '멜버른': { lat: -37.8136, lng: 144.9631, name: '멜버른' },
+    'Melbourne': { lat: -37.8136, lng: 144.9631, name: '멜버른' },
+    '브리즈번': { lat: -27.4698, lng: 153.0251, name: '브리즈번' },
+    'Brisbane': { lat: -27.4698, lng: 153.0251, name: '브리즈번' },
+    '퍼스': { lat: -31.9505, lng: 115.8605, name: '퍼스' },
+    'Perth': { lat: -31.9505, lng: 115.8605, name: '퍼스' },
+    '애들레이드': { lat: -34.9285, lng: 138.6007, name: '애들레이드' },
+    'Adelaide': { lat: -34.9285, lng: 138.6007, name: '애들레이드' },
+    '캔버라': { lat: -35.2809, lng: 149.1300, name: '캔버라' },
+    'Canberra': { lat: -35.2809, lng: 149.1300, name: '캔버라' },
+  },
+  '브라질': {
+    '상파울루': { lat: -23.5505, lng: -46.6333, name: '상파울루' },
+    'Sao Paulo': { lat: -23.5505, lng: -46.6333, name: '상파울루' },
+    '리우데자네이루': { lat: -22.9068, lng: -43.1729, name: '리우데자네이루' },
+    'Rio de Janeiro': { lat: -22.9068, lng: -43.1729, name: '리우데자네이루' },
+    '브라질리아': { lat: -15.7801, lng: -47.9292, name: '브라질리아' },
+    'Brasilia': { lat: -15.7801, lng: -47.9292, name: '브라질리아' },
+    '살바도르': { lat: -12.9714, lng: -38.5014, name: '살바도르' },
+    'Salvador': { lat: -12.9714, lng: -38.5014, name: '살바도르' },
+  },
+};
+
+// 국가별 지역 데이터 매핑
+const COUNTRY_REGION_MAP: Record<string, Record<string, RegionCoordinates>> = {
+  '미국': US_REGIONS,
+  'United States': US_REGIONS,
+  'US': US_REGIONS,
+  'USA': US_REGIONS,
+  '중국': CHINA_REGIONS,
+  'China': CHINA_REGIONS,
+  '러시아': RUSSIA_REGIONS,
+  'Russia': RUSSIA_REGIONS,
+  '캐나다': CANADA_REGIONS,
+  'Canada': CANADA_REGIONS,
+  '인도': INDIA_REGIONS,
+  'India': INDIA_REGIONS,
+};
+
+/**
+ * 국가, 지역, 도시 정보를 기반으로 상세 좌표 반환
+ */
+export function getDetailedCoordinates(
+  country: string,
+  region?: string | null,
+  city?: string | null
+): { lat: number; lng: number } | null {
+  // 1. 도시 정보가 있으면 도시 좌표 우선 검색
+  if (city) {
+    // 유럽/아시아/호주 등 국가별 도시 검색
+    const countryKey = Object.keys(EUROPE_CITIES).find(
+      key => key === country || COUNTRY_COORDINATES[key]?.code === country
+    );
+    if (countryKey && EUROPE_CITIES[countryKey]) {
+      const cityData = EUROPE_CITIES[countryKey][city];
+      if (cityData) {
+        return { lat: cityData.lat, lng: cityData.lng };
+      }
+    }
+    
+    // 미국 도시 검색
+    if (country === '미국' || country === 'US' || country === 'USA' || country === 'United States') {
+      const usCity = US_REGIONS[city];
+      if (usCity) {
+        return { lat: usCity.lat, lng: usCity.lng };
+      }
+    }
+    
+    // 중국 도시 검색
+    if (country === '중국' || country === 'China') {
+      const chinaCity = CHINA_REGIONS[city];
+      if (chinaCity) {
+        return { lat: chinaCity.lat, lng: chinaCity.lng };
+      }
+    }
+    
+    // 러시아 도시 검색
+    if (country === '러시아' || country === 'Russia') {
+      const russiaCity = RUSSIA_REGIONS[city];
+      if (russiaCity) {
+        return { lat: russiaCity.lat, lng: russiaCity.lng };
+      }
+    }
+    
+    // 캐나다 도시 검색
+    if (country === '캐나다' || country === 'Canada') {
+      const canadaCity = CANADA_REGIONS[city];
+      if (canadaCity) {
+        return { lat: canadaCity.lat, lng: canadaCity.lng };
+      }
+    }
+    
+    // 인도 도시 검색
+    if (country === '인도' || country === 'India') {
+      const indiaCity = INDIA_REGIONS[city];
+      if (indiaCity) {
+        return { lat: indiaCity.lat, lng: indiaCity.lng };
+      }
+    }
+  }
+  
+  // 2. 지역 정보로 검색
+  if (region) {
+    const regionData = COUNTRY_REGION_MAP[country];
+    if (regionData) {
+      const regionCoords = regionData[region];
+      if (regionCoords) {
+        return { lat: regionCoords.lat, lng: regionCoords.lng };
+      }
+    }
+    
+    // 모든 지역 데이터에서 검색
+    for (const regionMap of Object.values(COUNTRY_REGION_MAP)) {
+      const coords = regionMap[region];
+      if (coords) {
+        return { lat: coords.lat, lng: coords.lng };
+      }
+    }
+  }
+  
+  // 3. 국가 좌표 반환
+  const countryCoords = getCountryCoordinates(country);
+  if (countryCoords) {
+    return { lat: countryCoords.lat, lng: countryCoords.lng };
+  }
+  
+  return null;
+}
 

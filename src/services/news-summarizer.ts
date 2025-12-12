@@ -133,18 +133,20 @@ function getCountryFromSource(source: string): string {
 }
 
 /**
- * 뉴스 요약과 국가를 한 번에 추출
+ * 뉴스 요약과 위치 정보를 한 번에 추출
  */
 export async function processNewsWithAI(
   title: string,
   description?: string,
   source?: string
-): Promise<{ summary: string | null; country: string }> {
+): Promise<{ summary: string | null; country: string; region: string | null; city: string | null }> {
   // API 키가 없으면 기본값 반환
   if (!genAI || !config.ai.geminiApiKey) {
     return {
       summary: null,
       country: getCountryFromSource(source || ''),
+      region: null,
+      city: null,
     };
   }
 
@@ -157,9 +159,14 @@ export async function processNewsWithAI(
 ${description ? `내용: ${description.substring(0, 500)}` : ''}
 출처: ${source || '알 수 없음'}
 
-아래 형식으로 답해주세요:
+아래 형식으로 정확하게 답해주세요:
 요약: (한국어 50자 이내로 간결하게)
-국가: (가장 관련 있는 국가 하나만, 한국어로. 예: 미국, 영국, 대한민국)`;
+국가: (가장 관련 있는 국가 하나만, 한국어로. 예: 미국, 영국, 대한민국)
+지역: (주/도/성 이름. 미국은 주 이름(예: California, Texas), 중국은 성 이름(예: 광둥성, 베이징시), 없으면 "없음")
+도시: (도시명. 영문 또는 한글. 예: Los Angeles, 뉴욕, 도쿄. 없으면 "없음")
+
+중요: 뉴스 내용에서 명확하게 언급된 지역/도시만 추출하세요. 추측하지 마세요.
+미국 뉴스의 경우 주(State)와 도시를 최대한 정확하게 추출해주세요.`;
 
     const result = await model.generateContent(prompt);
     const response = result.response;
@@ -168,21 +175,43 @@ ${description ? `내용: ${description.substring(0, 500)}` : ''}
     // 응답 파싱
     const summaryMatch = text.match(/요약[:\s]*(.+)/);
     const countryMatch = text.match(/국가[:\s]*(.+)/);
+    const regionMatch = text.match(/지역[:\s]*(.+)/);
+    const cityMatch = text.match(/도시[:\s]*(.+)/);
 
     const summary = summaryMatch ? summaryMatch[1].trim() : null;
     let country = countryMatch ? countryMatch[1].trim() : '전세계';
+    let region = regionMatch ? regionMatch[1].trim() : null;
+    let city = cityMatch ? cityMatch[1].trim() : null;
 
     // 국가명 정제
     if (country.length > 20) {
       country = '전세계';
     }
 
-    return { summary, country };
+    // "없음" 처리
+    if (region === '없음' || region === 'N/A' || region === '-') {
+      region = null;
+    }
+    if (city === '없음' || city === 'N/A' || city === '-') {
+      city = null;
+    }
+
+    // 지역/도시 길이 제한
+    if (region && region.length > 50) {
+      region = null;
+    }
+    if (city && city.length > 50) {
+      city = null;
+    }
+
+    return { summary, country, region, city };
   } catch (error) {
     console.error('뉴스 처리 실패:', error);
     return {
       summary: null,
       country: getCountryFromSource(source || ''),
+      region: null,
+      city: null,
     };
   }
 }
