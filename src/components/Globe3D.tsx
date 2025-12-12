@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, ThreeEvent } from '@react-three/fiber';
 import { OrbitControls, Sphere, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { NewsItem } from '@/types/news';
@@ -421,7 +421,7 @@ function ClusterMarker({
     return new THREE.Color('#22c55e');
   }, [cluster.newsItems.length]);
 
-  const handleClick = useCallback((e: THREE.Event) => {
+  const handleClick = useCallback((e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     clickAnimRef.current = 1;
     onClick();
