@@ -385,7 +385,7 @@ interface NewsCluster {
   coords: { lat: number; lng: number };
 }
 
-// 향상된 클러스터 마커 컴포넌트 (애니메이션 추가)
+// 향상된 클러스터 마커 컴포넌트 (애니메이션 + 숫자 표시)
 function ClusterMarker({ 
   cluster, 
   onClick, 
@@ -419,6 +419,15 @@ function ClusterMarker({
     if (count >= 5) return new THREE.Color('#f97316');
     if (count >= 3) return new THREE.Color('#eab308');
     return new THREE.Color('#22c55e');
+  }, [cluster.newsItems.length]);
+
+  // 색상 hex 값 (HTML 표시용)
+  const colorHex = useMemo(() => {
+    const count = cluster.newsItems.length;
+    if (count >= 10) return '#ef4444';
+    if (count >= 5) return '#f97316';
+    if (count >= 3) return '#eab308';
+    return '#22c55e';
   }, [cluster.newsItems.length]);
 
   const handleClick = useCallback((e: ThreeEvent<MouseEvent>) => {
@@ -464,6 +473,8 @@ function ClusterMarker({
     }
   });
 
+  const newsCount = cluster.newsItems.length;
+
   return (
     <group position={position}>
       {/* 외곽 글로우 */}
@@ -502,7 +513,49 @@ function ClusterMarker({
         />
       </mesh>
 
-      {/* 툴팁 */}
+      {/* 숫자 레이블 (항상 표시) */}
+      <Html 
+        position={[0, 0, 0]} 
+        center 
+        style={{ 
+          pointerEvents: hovered || isSelected ? 'none' : 'auto',
+          transform: 'scale(1)',
+        }}
+        distanceFactor={1.5}
+      >
+        <div 
+          className="flex items-center justify-center cursor-pointer select-none"
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            background: `linear-gradient(135deg, ${colorHex}, ${colorHex}dd)`,
+            border: '2px solid rgba(255,255,255,0.8)',
+            boxShadow: `0 0 10px ${colorHex}80, 0 2px 4px rgba(0,0,0,0.3)`,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          onMouseEnter={() => {
+            setHovered(true);
+            onHover(true);
+          }}
+          onMouseLeave={() => {
+            setHovered(false);
+            onHover(false);
+          }}
+        >
+          <span 
+            className="text-white font-bold text-xs"
+            style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}
+          >
+            {newsCount}
+          </span>
+        </div>
+      </Html>
+
+      {/* 툴팁 (호버/선택 시) */}
       {(hovered || isSelected) && (
         <Html position={[0, 0.15, 0]} center style={{ pointerEvents: 'none' }}>
           <div className="bg-cosmos-900/95 backdrop-blur-sm px-4 py-3 rounded-xl border border-cosmos-600/50 shadow-2xl min-w-[240px] max-w-[320px] animate-fadeIn">

@@ -119,17 +119,12 @@ async function collectLimitedNews(maxTotal: number) {
         rich_text: [{ text: { content: finalCountry } }],
       };
       
+      // 지역과 도시 정보는 로그로만 출력 (Notion DB에 속성 없음)
       if (region) {
-        properties['지역'] = {
-          rich_text: [{ text: { content: region } }],
-        };
         console.log(`   ✓ 지역: ${region}`);
       }
       
       if (city) {
-        properties['도시'] = {
-          rich_text: [{ text: { content: city } }],
-        };
         console.log(`   ✓ 도시: ${city}`);
       }
       

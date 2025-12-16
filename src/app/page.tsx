@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { NewsItem } from '@/types/news';
 import NewsPanel from '@/components/NewsPanel';
 import ViewToggle from '@/components/ViewToggle';
 import Header from '@/components/Header';
+import NewsCollector from '@/components/NewsCollector';
 
 // Three.js 컴포넌트는 클라이언트에서만 로드
 const Globe3D = dynamic(() => import('@/components/Globe3D'), { 
@@ -50,21 +51,28 @@ export default function Home() {
   const [filterCountry, setFilterCountry] = useState<string | null>(null);
   const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
 
-  // 뉴스 데이터 fetch
-  useEffect(() => {
-    async function fetchNews() {
-      try {
-        const response = await fetch('/api/news');
-        const data = await response.json();
-        setNews(data.news || []);
-      } catch (error) {
-        console.error('뉴스 로딩 실패:', error);
-      } finally {
-        setIsLoading(false);
-      }
+  // 뉴스 데이터 fetch 함수
+  const fetchNews = useCallback(async () => {
+    try {
+      const response = await fetch('/api/news');
+      const data = await response.json();
+      setNews(data.news || []);
+    } catch (error) {
+      console.error('뉴스 로딩 실패:', error);
+    } finally {
+      setIsLoading(false);
     }
-    fetchNews();
   }, []);
+
+  // 초기 뉴스 데이터 로드
+  useEffect(() => {
+    fetchNews();
+  }, [fetchNews]);
+
+  // 뉴스 수집 완료 후 새로고침
+  const handleNewsCollected = useCallback(() => {
+    fetchNews();
+  }, [fetchNews]);
 
   const handleNewsClick = (newsItem: NewsItem) => {
     setSelectedNews(newsItem);
@@ -154,6 +162,9 @@ export default function Home() {
         filteredNews={filteredNews}
         onClearFilter={handleClearFilter}
       />
+
+      {/* 뉴스 수집 버튼 */}
+      <NewsCollector onNewsCollected={handleNewsCollected} />
 
       {/* 로딩 오버레이 */}
       {isLoading && (

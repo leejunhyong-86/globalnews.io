@@ -768,9 +768,9 @@ export default function WorldMap2D({ news, onNewsClick, onNewsHover, onCountryCl
         </div>
       )}
 
-      {/* 컨트롤 버튼 */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
-        {/* 줌 인/아웃 */}
+      {/* 컨트롤 버튼 - 헤더 아래에 위치 */}
+      <div className="absolute top-24 right-4 flex flex-col gap-2 z-10">
+        {/* 줌 인 */}
         <button
           onClick={() => {
             const newScale = Math.min(8, transform.scale * 1.3);
@@ -779,13 +779,14 @@ export default function WorldMap2D({ news, onNewsClick, onNewsHover, onCountryCl
           }}
           className="w-10 h-10 bg-cosmos-800/90 hover:bg-cosmos-700/90 text-cosmos-100 
                      rounded-lg border border-cosmos-600/50 backdrop-blur-sm 
-                     flex items-center justify-center transition-all"
-          title="확대"
+                     flex items-center justify-center transition-all shadow-lg"
+          title="확대 (Zoom In)"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
           </svg>
         </button>
+        {/* 줌 아웃 */}
         <button
           onClick={() => {
             const newScale = Math.max(1, transform.scale * 0.7);
@@ -794,19 +795,20 @@ export default function WorldMap2D({ news, onNewsClick, onNewsHover, onCountryCl
           }}
           className="w-10 h-10 bg-cosmos-800/90 hover:bg-cosmos-700/90 text-cosmos-100 
                      rounded-lg border border-cosmos-600/50 backdrop-blur-sm 
-                     flex items-center justify-center transition-all"
-          title="축소"
+                     flex items-center justify-center transition-all shadow-lg"
+          title="축소 (Zoom Out)"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
           </svg>
         </button>
+        {/* 초기화 */}
         <button
           onClick={handleReset}
           className="w-10 h-10 bg-cosmos-800/90 hover:bg-cosmos-700/90 text-cosmos-100 
                      rounded-lg border border-cosmos-600/50 backdrop-blur-sm 
-                     flex items-center justify-center transition-all"
-          title="초기화"
+                     flex items-center justify-center transition-all shadow-lg"
+          title="초기화 (Reset View)"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
@@ -870,7 +872,7 @@ export default function WorldMap2D({ news, onNewsClick, onNewsHover, onCountryCl
       </div>
 
       {/* 줌 레벨 표시 */}
-      <div className="absolute bottom-20 right-4 bg-cosmos-900/80 backdrop-blur-sm px-3 py-2 rounded-lg border border-cosmos-700/50 z-10">
+      <div className="absolute bottom-4 right-20 bg-cosmos-900/80 backdrop-blur-sm px-3 py-2 rounded-lg border border-cosmos-700/50 z-10">
         <p className="text-xs text-cosmos-400">
           줌: {(transform.scale * 100).toFixed(0)}%
           {transform.scale >= 2 && <span className="ml-2 text-cosmos-300">• 상세 보기</span>}
