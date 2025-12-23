@@ -146,26 +146,35 @@ export default function NewsCollector({ onNewsCollected }: NewsCollectorProps) {
   const countOptions = [30, 50, 100];
 
   return (
-    <div className="absolute bottom-20 right-4 z-30">
-      {/* 메인 버튼 */}
+    <div 
+      className="fixed right-4 z-[9999]"
+      style={{ 
+        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 100px)',
+      }}
+    >
+      {/* 메인 버튼 - 모바일에서 더 크고 눈에 띄게 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-12 h-12 rounded-full shadow-lg
+          w-14 h-14 rounded-full shadow-2xl
           flex items-center justify-center
           transition-all duration-300
+          border-2 border-white/30
           ${isOpen 
             ? 'bg-cosmos-700 rotate-45' 
             : 'bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500'}
           ${isCollecting ? 'animate-pulse' : ''}
         `}
         title="뉴스 수집"
+        style={{ 
+          boxShadow: '0 4px 20px rgba(16, 185, 129, 0.5)',
+        }}
       >
         {isCollecting ? (
-          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin" />
         ) : (
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+          <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} 
               d={isOpen ? "M6 18L18 6M6 6l12 12" : "M12 4v16m8-8H4"} />
           </svg>
         )}
@@ -173,7 +182,13 @@ export default function NewsCollector({ onNewsCollected }: NewsCollectorProps) {
 
       {/* 패널 */}
       {isOpen && (
-        <div className="absolute bottom-14 right-0 w-80 bg-cosmos-900/95 backdrop-blur-md rounded-xl border border-cosmos-700/50 shadow-2xl overflow-hidden animate-slideUp">
+        <div 
+          className="fixed right-4 w-[calc(100vw-2rem)] max-w-80 bg-cosmos-900/95 backdrop-blur-md rounded-xl border border-cosmos-700/50 shadow-2xl overflow-hidden animate-slideUp z-[9999]"
+          style={{
+            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 170px)',
+            maxHeight: 'calc(100vh - 200px)',
+          }}
+        >
           {/* 헤더 */}
           <div className="p-4 border-b border-cosmos-700/50 bg-gradient-to-r from-cosmos-800/50 to-cosmos-900/50">
             <div className="flex items-start justify-between">
